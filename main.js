@@ -3,9 +3,9 @@ var ctx = canvas.getContext('2d');
 
 class Grid {
 	constructor (width, height) {
-		const scale = 20;
-		this.width = width/scale;
-		this.height = height/scale;
+		this.scale = 20;
+		this.width = width/this.scale;
+		this.height = height/this.scale;
 		this.space = [];
 		this.changed = [];
 		this.generation = 0;
@@ -30,20 +30,20 @@ class Grid {
 			row.forEach(function(item, j) {
 				if (item == 0) {
 					ctx.strokeStyle = 'silver';
-					ctx.strokeRect(x, y, 20, 20);
+					ctx.strokeRect(x, y, this.scale, this.scale);
 				 }
 
 				if (item == 1) {
 					//инициализировать отдельно
 					ctx.fillStyle = 'green';
-					ctx.fillRect(x, y, 19, 19);
+					ctx.fillRect(x, y, this.scale-1, this.scale-1);
 				}
 
-				x +=20;
+				x +=this.scale;
 				
 			},this);
 			x = 0;
-			y += 20;
+			y += this.scale;
 		},this);	
 		document.getElementById('gen').innerHTML = this.generation;
 	}
@@ -119,18 +119,39 @@ class Grid {
 		this.draw();
 	}
 
+	createLifeCell(rowIndex, cellIndex) {
+		if (this.space[rowIndex][cellIndex] == 0) 
+			{
+				this.space[rowIndex][cellIndex] = 1;
+			} else 
+				this.space[rowIndex][cellIndex] = 0;
+				
+		this.changed = this.space.slice().map(function(row) {
+			return row.slice();
+		});
+		this.draw();
+	}
+
+	clear() {
+		this.space.forEach(function(row, rowIndex) {
+			row.forEach(function(cell, cellIndex) {
+				this.space[rowIndex][cellIndex] = 0;
+			},this);
+		},this);
+		this.changed = this.space.slice().map(function(row) {
+			return row.slice();
+		});
+		this.generation = 0;
+		this.draw();
+	}
+
 
 }
 
 
 var grid = new Grid(canvas.width, canvas.height);
 console.log(grid);
-grid.space[3][5] = 1;
-grid.space[3][6] = 1;
-grid.space[3][7] = 1;
-grid.space[2][7] = 1;
-grid.space[1][6] = 1;
-grid.changed = grid.space.slice().map(function(row) {return row.slice();})
+
 grid.draw();
 
 
@@ -165,9 +186,19 @@ cont.onclick = function(event) {
 	if (target.id == 'random' && pause == true) {
 		grid.random();
 	}
+
+
+	if (target.id == 'clear' && pause == true) {
+		grid.clear();
+	}
 }
 
-function createLifeCell(event) {
+function clickOnCell(event) {
 	console.log(event.clientX, event.clientY);
+	if (event.clientX !== undefined || event.clientY !== undefined) {
+		let x = Math.floor((event.clientY - 10)/grid.scale);
+		let y = Math.floor((event.clientX - 10)/grid.scale);
+		grid.createLifeCell(x, y);
+	}
 }
-canvas.addEventListener('click', createLifeCell)
+canvas.addEventListener('click', clickOnCell);

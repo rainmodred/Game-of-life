@@ -7,16 +7,26 @@
 		* {
 			margin: 20;
 		}
+		.noselect {
+		  -webkit-touch-callout: none; /* iOS Safari */
+		    -webkit-user-select: none; /* Safari */
+		     -khtml-user-select: none; /* Konqueror HTML */
+		       -moz-user-select: none; /* Firefox */
+		        -ms-user-select: none; /* Internet Explorer/Edge */
+		            user-select: none; /* Non-prefixed version, currently
+		                                  supported by Chrome and Opera */
+		}
 	</style>
 </head>
 <body>
-	<canvas id ="canvas" width="1600" height="800"></canvas>
+	<canvas id ="canvas" width="1800" height="800"></canvas>
 	<div id = 'container'>
-		Genaration
-		<span id="gen">0</span> <br> <br>
+		<span class='noselect'>Genaration</span>
+		<span class='noselect' id="gen">0</span> <br> <br>
 		<button id="start">Start</button>
 		<button id="stop" >Stop</button>
 		<button id="random">Random</button>
+		<button id="clear">Clear</button>
 	</div>
 	<script src='main.js'></script>
 </body>
