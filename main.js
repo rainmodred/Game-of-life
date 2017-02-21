@@ -16,9 +16,7 @@ class Grid {
 				this.space[i].push(0);
 			}
 		}
-		this.changed = this.space.slice().map(function(row) {
-			return row.slice();
-		});
+		this.updateChanged();
 	}
 
 	draw() {
@@ -113,9 +111,7 @@ class Grid {
 			},this);
 		},this);
 
-		this.changed = this.space.slice().map(function(row) {
-			return row.slice();
-		});
+		this.updateChanged();
 		this.draw();
 	}
 
@@ -125,10 +121,8 @@ class Grid {
 				this.space[rowIndex][cellIndex] = 1;
 			} else 
 				this.space[rowIndex][cellIndex] = 0;
-				
-		this.changed = this.space.slice().map(function(row) {
-			return row.slice();
-		});
+
+		this.updateChanged();
 		this.draw();
 	}
 
@@ -143,6 +137,97 @@ class Grid {
 		});
 		this.generation = 0;
 		this.draw();
+	}
+
+	createFigure(str) {
+		switch(str) {
+		  case 'glider': 	
+		  	this.clear();	    
+			this.space[10][10] = 1;
+			this.space[10][11] = 1;
+			this.space[10][12] = 1;
+			this.space[9][12] = 1;
+			this.space[8][11] = 1;
+		    break
+
+		  case 'small exploder': 
+		    this.clear();
+		    this.space[15][27] = 1;
+			this.space[15][28] = 1;
+			this.space[15][29] = 1;
+			this.space[14][28] = 1;
+			this.space[16][27] = 1;
+			this.space[16][29] = 1;
+			this.space[17][28] = 1;
+		    break
+		  case 'exploder':
+		  	this.clear();
+		  	this.space[15][27] = 1;
+			this.space[16][27] = 1;
+			this.space[17][27] = 1;
+			this.space[18][27] = 1;
+			this.space[19][27] = 1;
+			this.space[15][31] = 1;
+			this.space[16][31] = 1;
+			this.space[17][31] = 1;
+			this.space[18][31] = 1;
+			this.space[19][31] = 1;
+
+			this.space[15][29] = 1;
+			this.space[19][29] = 1;
+			break
+		  case 'cellrow':
+		  	this.clear();
+		  	this.space[18][28] = 1;
+			this.space[18][29] = 1;
+			this.space[18][30] = 1;
+			this.space[18][31] = 1;
+			this.space[18][32] = 1;
+			this.space[18][33] = 1;
+			this.space[18][34] = 1;
+			this.space[18][35] = 1;
+			this.space[18][36] = 1;
+			this.space[18][37] = 1;
+			break
+		  case 'spaceship':
+		  	this.clear();
+		  	this.space[18][30] = 1;
+		  	this.space[18][31] = 1;
+		  	this.space[18][32] = 1;
+		  	this.space[18][33] = 1;
+		  	this.space[19][29] = 1;
+		  	this.space[21][29] = 1;
+		  	this.space[21][32] = 1;
+		  	this.space[19][33] = 1;
+		  	this.space[20][33] = 1;
+		  	break
+
+		  default:
+		    
+		    break
+		}
+
+
+	/*	if (str == 'glider') {
+
+			this.space[10][10] = 1;
+			this.space[10][11] = 1;
+			this.space[10][12] = 1;
+			this.space[9][12] = 1;
+			this.space[8][11] = 1;
+		}*/
+
+		this.updateChanged();
+		this.draw();
+
+
+
+	}
+
+	updateChanged() {
+		this.changed = this.space.slice().map(function(row) {
+			return row.slice();
+		});
 	}
 
 
@@ -202,3 +287,13 @@ function clickOnCell(event) {
 	}
 }
 canvas.addEventListener('click', clickOnCell);
+
+var sel = document.getElementById('sel');
+console.log(sel);
+sel.addEventListener('change', clickOnSel);
+function clickOnSel(event) {
+	var target = event.target;
+	
+	console.log(target.options[target.selectedIndex].value);
+	grid.createFigure(target.options[target.selectedIndex].value);
+}
