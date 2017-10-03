@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 
 class Grid {
   constructor(width, height) {
-    this.scale = 40;
+    this.scale = 5;
     this.cellWidth = width / this.scale;
     this.cellHeight = height / this.scale;
     this.space = [];
