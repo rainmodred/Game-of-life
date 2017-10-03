@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Game of life</title>
-	<style>
-		* {
-			margin: 20;
-		}
-		.noselect {
-		  -webkit-touch-callout: none; /* iOS Safari */
-		    -webkit-user-select: none; /* Safari */
-		     -khtml-user-select: none; /* Konqueror HTML */
-		       -moz-user-select: none; /* Firefox */
-		        -ms-user-select: none; /* Internet Explorer/Edge */
-		            user-select: none; /* Non-prefixed version, currently
-		                                  supported by Chrome and Opera */
-		}
-	</style>
+  <meta charset="UTF-8">
+  <title>Game of life</title>
+  <style>
+    * {
+      margin: 20;
+    }
+    .noselect {
+      -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome and Opera */
+    }
+  </style>
 </head>
 <body>
-	<canvas id ="canvas" width="1800" height="800"></canvas>
-	<div id = 'container'>
-		<span class='noselect'>Genaration</span>
-		<span class='noselect' id="gen">0</span> <br> <br>
-		<select id ='sel'>
-			<option value="glider">Glider</option>
-			<option value="small exploder">Small Exploder</option>
-			<option value="exploder">Exploder</option>
-			<option value="cellrow">10 Cell Row</option>
-			<option value="spaceship">spaceship</option>
-		</select>
-		<button id="start">Start</button>
-		<button id="stop" >Stop</button>
-		<button id="random">Random</button>
-		<button id="clear">Clear</button>
-	</div>
-	<script src='js/main.js'></script>
+  <canvas id ="canvas" width="1800" height="800"></canvas>
+  <div id = 'container'>
+    <span class='noselect'>Genaration</span>
+    <span class='noselect' id="gen">0</span> <br> <br>
+    <select id ='sel'>
+      <option value="glider">Glider</option>
+      <option value="small exploder">Small Exploder</option>
+      <option value="exploder">Exploder</option>
+      <option value="cellrow">10 Cell Row</option>
+      <option value="spaceship">spaceship</option>
+    </select>
+    <label for="">Scale: </label>
+    <select name="" id="size">
+      <option value="5">5</option>
+      <option value="20">20</option>
+      <option value="40">40</option>
+    </select>
+    <button id="start">Start</button>
+    <button id="stop" >Stop</button>
+    <button id="random">Random</button>
+    <button id="clear">Clear</button>
+  </div>
+  <script src='js/main.js'></script>
 </body>
 </html>
